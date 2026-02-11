@@ -6,3 +6,12 @@ def index(request):
     context ={}
     return render(request, "index.html", context)
 
+
+def login(request):
+    context = {}
+    return render(request, "login.html",context)
+
+
+def registr(request):
+    context = {}
+    return render(request, "registr.html",context)

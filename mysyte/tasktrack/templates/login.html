@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+    <h3> Вход </h3>
+
+    <p> email </p> 
+    <input type="email" placeholder="example@mail.com">    
+    <p> password </p> 
+    <input type="password" placeholder="Пароль">
+
+    <button type="submit"> Вход </button>
+
+    <li><a href="{% url 'registr' %}">Регистрация</a></li>
+{% endblock %}
