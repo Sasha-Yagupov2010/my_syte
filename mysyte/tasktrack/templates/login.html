@@ -3,14 +3,45 @@
 {% block title %}Вход{% endblock %}
 
 {% block content %}
-    <h3> Вход </h3>
-
-    <p> email </p> 
-    <input type="email" placeholder="example@mail.com">    
-    <p> password </p> 
-    <input type="password" placeholder="Пароль">
-
-    <button type="submit"> Вход </button>
-
-    <li><a href="{% url 'registr' %}">Регистрация</a></li>
+<div class="auth-form">
+    <h3>Вход</h3>
+    
+    {% if messages %}
+    <div class="alert alert-error">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    {% if form.errors %}
+    <div class="alert alert-error">
+        Неверное имя пользователя или пароль. Попробуйте еще раз.
+    </div>
+    {% endif %}
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="id_username">Имя пользователя</label>
+            {{ form.username }}
+        </div>
+        
+        <div class="form-group">
+            <label for="id_password">Пароль</label>
+            {{ form.password }}
+        </div>
+        
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Войти</button>
+        </div>
+    </form>
+    
+    <div class="auth-links">
+        <p>
+            Нет аккаунта? <a href="{% url 'registr' %}">Зарегистрироваться</a>
+        </p>
+    </div>
+</div>
 {% endblock %}

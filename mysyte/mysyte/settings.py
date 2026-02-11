@@ -116,4 +116,22 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
+# Статические файлы (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
+
+# Для разработки
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
+# Для продакшена
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Медиа файлы (загруженные пользователями)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# Перенаправление после логина
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'index'
+LOGIN_URL = 'login'
