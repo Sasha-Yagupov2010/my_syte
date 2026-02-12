@@ -1,7 +1,16 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model
+from .models import Task
 
+
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ['title', 'text', 'priority', 'deadline']
+        widgets = {
+            'deadline': forms.DateInput(attrs={'type': 'date'}),
+        }
 User = get_user_model()
 
 class RegisterForm(UserCreationForm):
@@ -61,3 +70,30 @@ class LoginForm(AuthenticationForm):
             'class': 'form-control',
             'placeholder': 'Пароль'
         })
+
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ['title', 'text', 'priority', 'deadline']
+        widgets = {
+            'deadline': forms.DateInput(attrs={'type': 'date'}),
+        } 
+        from django import forms
+from .models import Task
+from django.utils import timezone
+
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        #fields = ['title', 'text', 'priority', 'deadline', 'additional_authors']
+        fields = ['title', 'text', 'priority', 'deadline']
+        widgets = {
+            'deadline': forms.DateInput(attrs={'type': 'date'}),
+            'additional_authors': forms.SelectMultiple(attrs={'class': 'form-control'}),
+        }
+    
+    def clean_deadline(self):
+        deadline = self.cleaned_data.get('deadline')
+        if deadline and deadline < timezone.now().date():
+            raise forms.ValidationError("Срок выполнения не может быть в прошлом!")
+        return deadline     

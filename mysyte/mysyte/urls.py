@@ -23,4 +23,5 @@ urlpatterns = [
     path('', index, name='index'),
     path('registr/', registr_page, name='registr'),
     path('login/', login_page, name='login'),
+    path('create/', create_task, name='create_task'),
 ]

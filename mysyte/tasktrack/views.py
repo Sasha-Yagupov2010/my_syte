@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as auth_login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import RegisterForm, LoginForm  # Импортируем кастомную форму
+from .forms import *
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
 
 def index(request):
     context = {}
@@ -36,3 +38,20 @@ def registr_page(request):
     else:
         form = RegisterForm()
     return render(request, 'registr.html', {'form': form})
+    
+
+
+
+@login_required
+def create_task(request):
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.author = request.user  # автоматически ставим текущего пользователя
+            task.save()
+            return redirect('index')  # или куда нужно
+    else:
+        form = TaskForm()
+    
+    return render(request, 'tasks/createTask.html', {'form': form})    
