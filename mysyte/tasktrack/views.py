@@ -55,3 +55,8 @@ def create_task(request):
         form = TaskForm()
     
     return render(request, 'tasks/createTask.html', {'form': form})    
+
+
+def task_list(request):
+
+    return render(request, 'tasks/taskList.html')   

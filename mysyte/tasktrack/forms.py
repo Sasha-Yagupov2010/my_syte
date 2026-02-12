@@ -4,13 +4,6 @@ from django.contrib.auth import get_user_model
 from .models import Task
 
 
-class TaskForm(forms.ModelForm):
-    class Meta:
-        model = Task
-        fields = ['title', 'text', 'priority', 'deadline']
-        widgets = {
-            'deadline': forms.DateInput(attrs={'type': 'date'}),
-        }
 User = get_user_model()
 
 class RegisterForm(UserCreationForm):

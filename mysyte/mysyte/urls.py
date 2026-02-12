@@ -24,4 +24,5 @@ urlpatterns = [
     path('registr/', registr_page, name='registr'),
     path('login/', login_page, name='login'),
     path('create/', create_task, name='create_task'),
+    path('watch/', task_list, name='tasklist'),
 ]
