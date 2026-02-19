@@ -4,10 +4,11 @@
 /* ===== CSS ПЕРЕМЕННЫЕ ===== */
 :root {
   /* СВЕТЛАЯ ТЕМА (по умолчанию) */
-  --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+  /*--bg-gradient: linear-gradient(135deg, #e6f0ff 0%, #d6e4ff 25%, #f0f7ff 50%, #e6f0ff 75%, #d6e4ff 100%);*/
+  --bg-gradient: linear-gradient(135deg, #edf3fd 0%, #dbe6fc 25%, #fbfdff 50%, #eff5ff 75%, #cfdfff 100%);
   --card-bg: rgba(255, 255, 255, 0.75);
   --card-border: 1px solid rgba(255, 255, 255, 0.9);
-  --card-shadow: 0 8px 32px rgba(31, 38, 135, 0.05);
+  --card-shadow: 0 20px 60px rgba(31, 38, 135, 0.2);
   --card-shadow-hover: 0 12px 48px rgba(31, 38, 135, 0.1);
   --text-primary: #2d3748;
   --text-secondary: #718096;
@@ -96,6 +97,8 @@ body {
 }
 
 .nav-menu a {
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
   text-decoration: none;
   color: var(--text-primary);
   font-weight: 500;
@@ -132,6 +135,7 @@ body {
   background: var(--card-bg);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid var(--accent-blue);
 }
 
 /* ===== КНОПКА ПЕРЕКЛЮЧЕНИЯ ТЕМЫ ===== */
@@ -167,6 +171,13 @@ body {
   max-width: 1200px;
   margin: 2rem auto;
   padding: 0 1rem;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border: var(--card-border);
+  border-radius: 1.25rem;
+  box-shadow: var(--card-shadow);
 }
 
 .auth-form {
