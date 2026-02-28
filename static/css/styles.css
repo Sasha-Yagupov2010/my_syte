@@ -408,3 +408,47 @@ p {
   padding: 1rem;
 
 }
+
+
+/* ===== КНОПКА ПЕРЕКЛЮЧЕНИЯ ТЕМЫ ===== */
+.theme-toggle {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.theme-btn {
+    background: var(--card-bg);
+    border: var(--card-border);
+    color: var(--text-primary);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.theme-btn:hover {
+    transform: translateY(-50%) rotate(15deg) scale(1.1);
+    box-shadow: var(--card-shadow-hover);
+}
+
+/* Для мобильных устройств */
+@media (max-width: 768px) {
+    .theme-toggle {
+        position: static;
+        transform: none;
+        margin-top: 1rem;
+        order: 99; /* Переместить в конец на мобильных */
+    }
+
+    .theme-btn:hover {
+        transform: rotate(15deg) scale(1.1);
+    }
+}
