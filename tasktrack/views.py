@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login as auth_login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import *
@@ -57,6 +57,15 @@ def create_task(request):
     return render(request, 'tasks/createTask.html', {'form': form})    
 
 
-def task_list(request):
+def task_detail(request, task_id):
+    """Страница с детальной информацией о задаче"""
+    task = get_object_or_404(Task, id=task_id)
+    return render(request, 'tasks/task_detail.html', {'task': task})
 
-    return render(request, 'tasks/taskList.html')   
+def task_list(request):
+    tasks = Task.objects.all()#.order_by('-created_date')
+    
+    context = {
+        'tasks': tasks, 
+    }
+    return render(request, 'tasks/taskList.html', context)

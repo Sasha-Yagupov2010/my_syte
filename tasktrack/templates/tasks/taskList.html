@@ -1,0 +1,57 @@
+<!-- taskList.html -->
+{% extends 'base.html' %}
+
+{% block title %}Мои задачи{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Мои задачи</h1>
+    
+    <div class="row">
+        {% for task in tasks %}
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ task.title }}</h5>
+                    <p class="card-text">{{ task.text|truncatechars:150 }}</p>
+                    
+                    <div class="mb-2">
+                        <span class="badge bg-{% if task.priority == 'high' %}danger{% elif task.priority == 'medium' %}warning{% else %}info{% endif %}">
+                            {{ task.get_priority_display }}
+                        </span>
+                        <span class="badge bg-secondary">
+                            {{ task.get_status_display }}
+                        </span>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <a href="{% url 'task_detail' task.id %}" 
+                           class="btn btn-primary" 
+                           target="_blank">
+                            Открыть задачу
+                        </a>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    <small>
+                        До: {{ task.deadline|date:"d.m.Y" }} | 
+                        {{ task.author.username }}
+                    </small>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                <h4 class="alert-heading">Задач нет!</h4>
+                <p>Создайте свою первую задачу.</p>
+                <hr>
+                <a href="{% url 'create_task' %}" class="btn btn-success">
+                    Создать задачу
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

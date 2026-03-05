@@ -1,0 +1,72 @@
+<!-- task_detail.html -->
+{% extends 'base.html' %}
+
+{% block title %}{{ task.title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="mb-0">{{ task.title }}</h2>
+                <div>
+                    <span class="badge bg-{% if task.status == 'new' %}danger{% elif task.status == 'in_progress' %}warning{% else %}success{% endif %}">
+                        {{ task.get_status_display }}
+                    </span>
+                    <span class="badge bg-{% if task.priority == 'high' %}danger{% elif task.priority == 'medium' %}warning{% else %}info{% endif %}">
+                        {{ task.get_priority_display }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card-body">
+            <h5>Описание:</h5>
+            <p class="card-text">{{ task.text|linebreaks }}</p>
+            
+            <hr>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Информация:</h5>
+                    <ul class="list-unstyled">
+                        <li><strong>Автор:</strong> {{ task.author.username }}</li>
+                        <li><strong>Создана:</strong> {{ task.created_date|date:"d.m.Y H:i" }}</li>
+                        <li><strong>Срок выполнения:</strong> 
+                            {% if task.is_overdue %}
+                            <span class="text-danger">
+                                {{ task.deadline|date:"d.m.Y" }} (просрочено)
+                            </span>
+                            {% else %}
+                            {{ task.deadline|date:"d.m.Y" }} (осталось {{ task.days_left }} дн.)
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-6">
+                    <h5>Дополнительные авторы:</h5>
+                    {% if task.additional_authors.all %}
+                    <ul>
+                        {% for author in task.additional_authors.all %}
+                        <li>{{ author.username }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <p class="text-muted">Нет дополнительных авторов</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="card-footer">
+            <a href="{% url 'tasklist' %}" class="btn btn-secondary">
+                Назад к списку
+            </a>
+            {% if request.user == task.author %}
+            <h6> edit(not added)</h6>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
