@@ -1,7 +1,6 @@
-<!-- task_detail.html -->
 {% extends 'base.html' %}
 
-{% block title %}{{ task.title }}{% endblock %}
+{% block title %} прсмотр {{ task.title }}{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -22,7 +21,7 @@
         
         <div class="card-body">
             <h5>Описание:</h5>
-            <p class="card-text">{{ task.text|linebreaks }}</p>
+            <p class="card-text">{{ task.text|slice:":50"|linebreaks }}</p>
             
             <hr>
             
