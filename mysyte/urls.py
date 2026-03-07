@@ -25,4 +25,5 @@ urlpatterns = [
     path('login/', login_page, name='login'),
     path('create/', create_task, name='create_task'),
     path('watch/', task_list, name='tasklist'),
+    path('tasks/<int:task_id>/', task_detail, name='task_detail'),
 ]

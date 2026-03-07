@@ -1,0 +1,185 @@
+<!-- taskList.html -->
+{% extends 'base.html' %}
+
+{% block title %}Мои задачи{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4 text-center">Мои задачи</h1>
+    
+    <div class="row g-4">
+        {% for task in tasks %}
+        <div class="col-lg-4 col-md-6">
+            <div class="card task-card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ task.title }}</h5>
+                    <div class="card-text task-description">
+                        {{ task.text|truncatechars:150|linebreaks }}
+                    </div>
+                    
+                    <div class="task-tags mb-3">
+                        <span class="badge priority-{{ task.priority }}">
+                            {{ task.get_priority_display }}
+                        </span>
+                        <span class="badge status-badge">
+                            {{ task.get_status_display }}
+                        </span>
+                    </div>
+                    
+                    <div class="d-grid mt-3">
+                        <a href="{% url 'task_detail' task.id %}" 
+                           class="btn btn-primary btn-sm"
+                           target="_blank">
+                            <i class="bi bi-eye me-1"></i>Открыть задачу
+                        </a>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-top-0">
+                    <div class="task-meta text-muted">
+                        <small>
+                            <i class="bi bi-calendar-event me-1"></i>
+                            До: {{ task.deadline|date:"d.m.Y" }}
+                        </small>
+                        <br>
+                        <small>
+                            <i class="bi bi-person me-1"></i>
+                            {{ task.author.username }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info text-center">
+                <div class="alert-content">
+                    <h4 class="alert-heading mb-3">Задач нет!</h4>
+                    <p class="mb-3">Создайте свою первую задачу.</p>
+                    <hr class="my-3">
+                    <a href="{% url 'create_task' %}" class="btn btn-success">
+                        <i class="bi bi-plus-circle me-2"></i>Создать задачу
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+/* Дополнительные стили для страницы задач */
+.task-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border: var(--card-border);
+    border-radius: 1rem;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.task-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-shadow-hover);
+}
+
+.task-description {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    max-height: 4.5em;
+    overflow: hidden;
+    position: relative;
+}
+
+.task-description::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 30%;
+    height: 1.5em;
+    background: linear-gradient(to right, transparent, var(--card-bg));
+}
+
+.task-tags .badge {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+}
+
+.priority-high {
+    background: linear-gradient(135deg, var(--accent-red), #ff6b6b);
+    color: white;
+}
+
+.priority-medium {
+    background: linear-gradient(135deg, var(--accent-orange), #ffa726);
+    color: #1a365d;
+}
+
+.priority-low {
+    background: linear-gradient(135deg, var(--accent-blue), #4fc3f7);
+    color: white;
+}
+
+.status-badge {
+    background: linear-gradient(135deg, var(--accent-purple), #9575cd);
+    color: white;
+}
+
+.task-meta {
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+        margin: 1rem auto;
+    }
+    
+    .task-card {
+        margin-bottom: 1rem;
+    }
+    
+    .task-description {
+        max-height: 6em;
+    }
+}
+
+/* Для Bootstrap иконок, если их нет - можно убрать */
+.bi {
+    display: inline-block;
+    vertical-align: -0.125em;
+}
+
+/* Пустая страница */
+.alert-content {
+    padding: 1.5rem;
+}
+
+.alert.alert-info {
+    background: rgba(154, 230, 180, 0.1);
+    border: 1px solid var(--accent-green);
+    color: var(--text-primary);
+}
+
+.alert.alert-info .alert-heading {
+    color: var(--accent-green);
+}
+</style>
+
+<!-- Подключение Bootstrap Icons (опционально) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+{% endblock %}
