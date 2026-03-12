@@ -11,7 +11,7 @@
   --card-shadow: 0 20px 60px rgba(31, 38, 135, 0.2);
   --card-shadow-hover: 0 12px 48px rgba(31, 38, 135, 0.1);
   --text-primary: #2d3748;
-  --text-secondary: #718096;
+  --text-secondary: #22272e;
   --text-muted: #a0aec0;
   --accent-blue: #90cdf4;
   --accent-orange: #fbd38d;
@@ -370,22 +370,22 @@ p {
     padding: 1rem 0;
     gap: 0.5rem;
   }
-  
+
   .nav-menu a {
     width: 100%;
     text-align: center;
   }
-  
+
   .theme-toggle {
     position: static;
     transform: none;
     margin-top: 1rem;
   }
-  
+
   .container {
     margin: 1rem auto;
   }
-  
+
   .auth-form {
     margin: 1rem auto;
     padding: 1.5rem;
@@ -452,3 +452,30 @@ p {
         transform: rotate(15deg) scale(1.1);
     }
 }
+
+.task-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border: var(--card-border);
+    border-radius: 1rem;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+
+.card-body h1,
+.card-body h2,
+.card-body h3,
+.card-body h4,
+.card-body h5,
+.card-body h6,
+.card-body .card-title {
+  color: var(--text-primary) !important;
+}
+
+.card-body p {
+  color: var(--text-secondary) !important;
+  margin-bottom: 1rem;
+} 
