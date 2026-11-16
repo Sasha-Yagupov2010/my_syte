@@ -7,8 +7,18 @@ from django.contrib.auth.decorators import login_required
 
 
 def index(request):
-    context = {}
-    return render(request, "index.html", context)
+    # временная заглушка вместо реального queryset
+    news_list = [
+        {
+            "source": "Lenta.ru",
+            "title": "Тестовая новость №1",
+            "summary": "Короткое описание новости для проверки вёрстки карточки.",
+            "published_at": "2026-11-16 10:00",
+            "url": "#",
+        },
+        # ...
+    ]
+    return render(request, "index.html", {"news_list": news_list})
 
 def login_page(request):
     if request.method == 'POST':

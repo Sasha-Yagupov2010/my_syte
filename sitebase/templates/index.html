@@ -1,15 +1,111 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Главная{% endblock %}
+{% block title %}Главная — NewsVisit{% endblock %}
 
 {% block content %}
-    <h3> страница</h3>
-    <h2>страница</h2>
-    <h1>страница</h1>
-    <a>страница</a>
-    <p>страница</p>
-    <pre>
-страница
-страница
-    </pre>
+<!-- HERO -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <span class="badge badge-soft mb-3">Парсер новостей</span>
+                <h1 class="display-5 fw-bold mb-3">Свежие новости — в одном месте</h1>
+                <p class="lead text-muted mb-4">
+                    Мы собираем и структурируем новости из открытых источников,
+                    чтобы вы читали главное, а не искали его по десятку сайтов.
+                </p>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="#news" class="btn btn-primary px-4">Смотреть новости</a>
+                    <a href="#" class="btn btn-outline-primary px-4">О проекте</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card p-4">
+                    <h5 class="mb-3">Подписка на дайджест</h5>
+                    <form method="post" action="#">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email"
+                                   name="email" placeholder="you@example.com" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Подписаться</button>
+                    </form>
+                    <p class="help-text mt-3 mb-0">
+                        Одно письмо в день. Без спама.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- СТАТИСТИКА -->
+<section class="py-4">
+    <div class="container">
+        <div class="row g-3 text-center">
+            <div class="col-6 col-md-3">
+                <div class="card py-3">
+                    <div class="h4 fw-bold text-primary mb-0">1 240</div>
+                    <div class="text-muted small">источников</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card py-3">
+                    <div class="h4 fw-bold text-primary mb-0">18 500</div>
+                    <div class="text-muted small">новостей в день</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card py-3">
+                    <div class="h4 fw-bold text-primary mb-0">24/7</div>
+                    <div class="text-muted small">обновление</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card py-3">
+                    <div class="h4 fw-bold text-primary mb-0">100%</div>
+                    <div class="text-muted small">открытые данные</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- НОВОСТИ -->
+<section id="news" class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-end mb-4">
+            <h2 class="fw-bold mb-0">Последние новости</h2>
+            <a href="#" class="btn btn-sm btn-outline-primary">Все новости</a>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for news in news_list %}
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body d-flex flex-column">
+                        <span class="badge badge-soft mb-2 align-self-start">{{ news.source }}</span>
+                        <h5 class="card-title">{{ news.title }}</h5>
+                        <p class="card-text text-muted small flex-grow-1">
+                            {{ news.summary|truncatechars:140 }}
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <small class="text-muted">{{ news.published_at|date:"d.m.Y H:i" }}</small>
+                            <a href="{{ news.url }}" class="btn btn-sm btn-outline-primary">Читать</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="card p-4 text-center text-muted">
+                    Пока новостей нет — запустите парсер или добавьте данные в админке.
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 {% endblock %}
