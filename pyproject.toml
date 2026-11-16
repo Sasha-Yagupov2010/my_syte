@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mysyte"
+version = "1.0.0"
+description = "Django project"
+readme = "README.md"
+requires-python = ">=3.13"
+license = "MIT"
+
+dependencies = [
+    "Django>=5.0,<6.0",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "sphinx>=8.0",
+    "sphinx-rtd-theme>=3.0",
+    "pylint>=4.0",
+    "pycodestyle>=2.14",
+    "coverage>=7.0",
+    "pytest>=8.0",
+]
+
+prod = [
+    "gunicorn>=22.0",
+    "psycopg2-binary>=2.9",
+    "whitenoise>=6.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+include = ["mysyte*", "app*"]
+exclude = [
+    "tests*",
+    "venv*",
+    ".venv*",
+    "logs*",
+    "static*",
+    "content*",
+    "reports*",
+]
