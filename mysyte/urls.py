@@ -16,14 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from tasktrack.views import *
+from sitebase.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
-    path('registr/', registr_page, name='registr'),
-    path('login/', login_page, name='login'),
-    path('create/', create_task, name='create_task'),
-    path('watch/', task_list, name='tasklist'),
-    path('tasks/<int:task_id>/', task_detail, name='task_detail'),
 ]
